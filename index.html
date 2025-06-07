@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نية اليوم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="image-removebg-preview (10).png" >
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0e2035;
+            --secondary-color: #7b68ee;
+            --accent-color: #ffd700;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --background: #f8f9fa;
+            --card-background: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border-radius: 20px;
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --background: #1a1a2e;
+            --card-background: #16213e;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="90" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        .title {
+            color: white;
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .hadith-section {
+            background: linear-gradient(135deg, var(--accent-color), #ffb347);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .hadith-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #8b4513;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .hadith-source {
+            font-size: 0.9em;
+            color: #a0522d;
+            font-style: italic;
+        }
+
+        .niyyah-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .niyyah-label {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .niyyah-text {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: var(--text-primary);
+            border-right: 5px solid var(--primary-color);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .niyyah-text::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 3em;
+            color: var(--primary-color);
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        .niyyah-text::after {
+            content: '"';
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            font-size: 3em;
+            color: var(--primary-color);
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        [data-theme="dark"] .niyyah-text {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: var(--text-primary);
+        }
+
+        .button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(74, 144, 226, 0.4);
+        }
+
+        .button:active {
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 3;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(180deg);
+        }
+
+        .footer {
+            background: rgba(74, 144, 226, 0.1);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            border-top: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .loading {
+            opacity: 0.6;
+            transform: scale(0.98);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .niyyah-text.fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .title {
+                font-size: 2.2em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .niyyah-text {
+                font-size: 1.2em;
+                padding: 25px;
+            }
+            
+            .hadith-text {
+                font-size: 1.1em;
+            }
+        }
+
+        .icon {
+            display: inline-block;
+            font-style: normal;
+        }
+       
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع">
+                <span class="icon">🌙</span>
+            </button>
+            <div class="logo" style="
+  position: absolute;
+  top: -2px;
+  left: 400px;
+">
+  <img src="image-removebg-preview (10).png" alt="Logo" style="width: 200px; height: auto;">
+</div>
+
+            <h1 class="title">نية اليوم</h1>
+            <p class="subtitle">جدد نيتك واكسب الأجر</p>
+        </div>
+
+        <div class="content">
+            <div class="hadith-section">
+                <div class="hadith-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
+                <div class="hadith-source">صحيح البخاري</div>
+            </div>
+
+            <div class="niyyah-section">
+                <div class="niyyah-label">
+                    <span class="icon">✨</span>
+                    نيتك لهذا اليوم
+                    <span class="icon">✨</span>
+                </div>
+                <div class="niyyah-text" id="niyyahText">
+                    أنوي أن أطلب العلم لأرفع الجهل عن نفسي وأنفع به أمتي
+                </div>
+                <button class="button" onclick="getNewNiyyah()">
+                    <span class="icon">🔄</span>
+                    نية جديدة
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🤲 بارك الله فيك وتقبل منك صالح الأعمال 🤲</p>
+        </div>
+    </div>
+
+    <script>
+        const niyyahs = [
+            "أنوي أن أطلب العلم لأرفع الجهل عن نفسي وأنفع به أمتي",
+            "أنوي أن أبر والدي وأطيعهما في المعروف",
+            "أنوي أن أصل أرحامي وأحسن إلى أقاربي",
+            "أنوي أن أعين المحتاجين وأساعد الفقراء",
+            "أنوي أن أذكر الله كثيراً وأشكره على نعمه",
+            "أنوي أن أحافظ على صلاتي في أوقاتها",
+            "أنوي أن أقرأ القرآن وأتدبر معانيه",
+            "أنوي أن أكون صادقاً في قولي وعملي",
+            "أنوي أن أصبر على البلاء وأرضى بقضاء الله",
+            "أنوي أن أتصدق من مالي ولو بالقليل",
+            "أنوي أن أعفو عمن ظلمني وأسامح من أساء إلي",
+            "أنوي أن أنصح إخواني المسلمين بالخير",
+            "أنوي أن أكف لساني عن الغيبة والنميمة",
+            "أنوي أن أحسن إلى جيراني وأتودد إليهم",
+            "أنوي أن أطلب العلم النافع وأعمل به",
+            "أنوي أن أربي أولادي على الدين والأخلاق",
+            "أنوي أن أدعو إلى الله بالحكمة والموعظة الحسنة",
+            "أنوي أن أتوب إلى الله من جميع ذنوبي",
+            "أنوي أن أشكر الله على نعمة الصحة والعافية",
+            "أنوي أن أكون قدوة صالحة لمن حولي",
+            "أنوي أن أحفظ فرجي ولساني من الحرام",
+            "أنوي أن أتقرب إلى الله بالنوافل",
+            "أنوي أن أزور المرضى وأعود المحتاجين",
+            "أنوي أن أحافظ على البيئة وأنظف محيطي",
+            "أنوي أن أكسب الرزق الحلال وأتجنب الحرام",
+            "أنوي أن أستغفر الله كثيراً في اليوم",
+            "أنوي أن أبتسم في وجوه الناس وأنشر السعادة",
+            "أنوي أن أحفظ أسرار إخواني وأكتم عوراتهم",
+            "أنوي أن أجاهد نفسي على طاعة الله",
+            "أنوي أن أدعو للمسلمين بظهر الغيب",
+            "أنوي أن أتعلم علماً ينفعني في ديني ودنياي",
+            "أنوي أن أعمل بجد وإخلاص في عملي",
+            "أنوي أن أشارك في الأعمال التطوعية",
+            "أنوي أن أداوم على قيام الليل",
+            "أنوي أن أكون مخلصاً في صداقتي",
+            "أنوي أن أكون قدوة في أخلاقي",
+            "أنوي أن أطلب رضا الله قبل رضا الناس",
+            "أنوي أن أطور نفسي في مجالات مفيدة",
+            "أنوي أن أبتعد عن الغضب وأتحلى بالحلم",
+            "أنوي أن أساعد أمي في شؤون البيت",
+            "أنوي أن أحرص على حضور صلاة الجماعة",
+            "أنوي أن أقرأ سيرة النبي ﷺ وأتعلم منها",
+            "أنوي أن أذكر الله في كل وقت",
+            "أنوي أن أخلص نيتي في كل عبادة",
+            "أنوي أن أبتعد عن مواطن الشبهات",
+            "أنوي أن أغتنم الفرص لفعل الخير",
+            "أنوي أن أكون وفياً لعلاقاتي",
+            "أنوي أن أساعد كبار السن",
+            "أنوي أن أعمل بما أقول",
+            "أنوي أن أساعد من فقد الأمل",
+            "أنوي أن أزور قبور المسلمين وأتذكر الموت",
+            "أنوي أن أزرع الخير في قلبي وقلب غيري",
+            "أنوي أن أقرأ كتاباً نافعاً كل أسبوع",
+            "أنوي أن أبتعد عن المجادلات العقيمة",
+            "أنوي أن أدعو الله أن يثبتني على الحق",
+            "أنوي أن أدعو لأمة محمد ﷺ بالفرج",
+            "أنوي أن أشجع الأطفال على الصلاة",
+            "أنوي أن أبذل كل جهدي لنفع أمتي",
+            "أنوي أن أقوم الليل بدعاء خاص للمسلمين",
+            "أنوي أن أطلب العلم في كل مكان",
+            "أنوي أن أحسن الظن بالله والناس"
+        ];
+
+        let currentTheme = 'light';
+        let currentNiyyahIndex = 0;
+
+        function getRandomNiyyah() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * niyyahs.length);
+            } while (randomIndex === currentNiyyahIndex && niyyahs.length > 1);
+            
+            currentNiyyahIndex = randomIndex;
+            return niyyahs[randomIndex];
+        }
+
+        function getNewNiyyah() {
+            const niyyahElement = document.getElementById('niyyahText');
+            const button = document.querySelector('.button');
+            
+            // إضافة تأثير التحميل
+            niyyahElement.classList.add('loading');
+            button.disabled = true;
+            
+            setTimeout(() => {
+                const newNiyyah = getRandomNiyyah();
+                niyyahElement.textContent = newNiyyah;
+                niyyahElement.classList.remove('loading');
+                niyyahElement.classList.add('fade-in');
+                button.disabled = false;
+                
+                // إزالة كلاس الأنيميشن بعد انتهائه
+                setTimeout(() => {
+                    niyyahElement.classList.remove('fade-in');
+                }, 500);
+            }, 300);
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.querySelector('.theme-toggle .icon');
+            
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                currentTheme = 'dark';
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                currentTheme = 'light';
+            }
+        }
+
+        // تحديد نية عشوائية عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            const initialNiyyah = getRandomNiyyah();
+            document.getElementById('niyyahText').textContent = initialNiyyah;
+        });
+
+        // إضافة دعم للوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.code === 'Space') {
+                getNewNiyyah();
+            }
+        });
+    </script>
+</body>
+</html>
